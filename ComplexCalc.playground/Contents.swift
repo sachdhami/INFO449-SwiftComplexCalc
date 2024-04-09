@@ -28,6 +28,84 @@ print("Welcome back to the UW Calculator")
 //: IMPORTANT: If any tests are commented out, you will be graded a zero (0)! You should never be in the habit of eliminating tests to make the code pass.
 //:
 class Calculator {
+    // Basic Ops
+        
+        func add(lhs: Int, rhs: Int) -> Int {
+            return lhs + rhs
+        }
+        
+        func subtract(lhs: Int, rhs: Int) -> Int {
+            return lhs - rhs
+        }
+        
+        func multiply(lhs: Int, rhs: Int) -> Int {
+            return lhs * rhs
+        }
+        
+        func divide(lhs: Int, rhs: Int) -> Int {
+            guard rhs != 0 
+            else {
+                fatalError("Error")
+            }
+            return lhs / rhs
+        }
+        
+        // Arrays/Int
+        
+        func add(_ numbers: [Int]) -> Int {
+            return numbers.reduce(0, +)
+        }
+        
+        func multiply(_ numbers: [Int]) -> Int {
+            return numbers.reduce(1, *)
+        }
+        
+        func count(_ numbers: [Int]) -> Int {
+            return numbers.count
+        }
+        
+        func avg(_ numbers: [Int]) -> Int {
+            guard !numbers.isEmpty 
+            else { return 0 }
+            return add(numbers) / count(numbers)
+        }
+        
+        // Tuples
+        
+        func add(lhs p1: (Int, Int), rhs p2: (Int, Int)) -> (Int, Int) {
+            return (p1.0 + p2.0, p1.1 + p2.1)
+        }
+        
+        func subtract(lhs p1: (Int, Int), rhs p2: (Int, Int)) -> (Int, Int) {
+            return (p1.0 - p2.0, p1.1 - p2.1)
+        }
+        
+        // Dict
+        
+        func add(lhs pd1: [String: Int], rhs pd2: [String: Int]) -> [String: Int] {
+            guard let x1 = pd1["x"], let y1 = pd1["y"], let x2 = pd2["x"], let y2 = pd2["y"]
+            else {
+                fatalError("error")
+            }
+            return ["x": x1 + x2, "y": y1 + y2]
+        }
+        
+        func subtract(lhs pd1: [String: Int], rhs pd2: [String: Int]) -> [String: Int] {
+            guard let x1 = pd1["x"], let y1 = pd1["y"], let x2 = pd2["x"], let y2 = pd2["y"]
+            else {
+                fatalError("error")
+            }
+            return ["x": x1 - x2, "y": y1 - y2]
+        }
+        
+        func mathOp(lhs: Int, rhs: Int, op: (Int, Int) -> Int) -> Int {
+            return op(lhs, rhs)
+        }
+
+        func mathOp(args: [Int], beg: Int, op: (Int, Int) -> Int) -> Int {
+            return args.reduce(beg, op)
+        }
+
 }
 
 //: Don't change the name of this object (`calc`); it's used in all the tests.
@@ -52,7 +130,7 @@ calc.subtract(lhs: 2, rhs: 2) == 0
 calc.multiply(lhs: 2, rhs: 2) == 4
 calc.divide(lhs: 2, rhs: 2) == 1
 
-calc.mathOp(lhs: 5, rhs: 5, op: { (lhs: Int, rhs: Int) -> Int in (lhs + rjs) + (lhs * rhs) }) == 35
+calc.mathOp(lhs: 5, rhs: 5, op: { (lhs: Int, rhs: Int) -> Int in (lhs + rhs) + (lhs * rhs) }) == 35
     // This style is one way of writing an anonymous function
 calc.mathOp(lhs: 10, rhs: -5, op: { ($0 + $1) + ($0 - $1) }) == 20
     // This is the second, more terse, style; either works
